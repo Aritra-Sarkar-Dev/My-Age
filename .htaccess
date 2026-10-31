@@ -1,0 +1,64 @@
+# ==============================================================================
+# Apache Configuration for InfinityFree Hosting
+# App: Age Calculator (Static HTML5 / CSS3 / Vanilla JS)
+# ==============================================================================
+
+# 1. Default Document & Directory Browsing Security
+DirectoryIndex index.html
+Options -Indexes
+
+# 2. Character Encoding
+AddDefaultCharset UTF-8
+
+# 3. Proper MIME Types (Ensures ES Modules & Modern CSS load correctly)
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType application/json .json
+  AddType font/woff2 .woff2
+</IfModule>
+
+# 4. Enable Gzip Compression (Faster loading & lower bandwidth usage on InfinityFree)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# 5. Browser Caching for Static Assets (1 month for CSS/JS, 1 year for fonts)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 2 days"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# 6. Cache-Control Headers
+<IfModule mod_headers.c>
+  # Ensure index.html is always fresh
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+  </FilesMatch>
+
+  # Cache CSS and JS
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=2592000, public"
+  </FilesMatch>
+
+  # Security Headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 7. Optional: Automatic HTTPS Redirection (Uncomment if SSL is active in InfinityFree)
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

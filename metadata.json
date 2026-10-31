@@ -1,0 +1,6 @@
+{
+  "name": "Age Calculator",
+  "description": "Professional, modern, responsive age calculator website with exact leap-year precision, calendar insights, dark mode, and sharing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

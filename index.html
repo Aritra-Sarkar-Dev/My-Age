@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator - Discover Your Exact Age in Seconds</title>
+    <meta
+      name="description"
+      content="Professional, modern, responsive age calculator website with exact leap-year precision, calendar insights, dark mode, and sharing."
+    />
+    <meta property="og:title" content="Age Calculator - Discover Your Exact Age in Seconds" />
+    <meta
+      property="og:description"
+      content="Discover your exact age in years, months, and days with calendar insights, leap year precision, and sharing."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Background Glowing Ambient Orbs -->
+    <div class="ambient-glow glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow glow-2" aria-hidden="true"></div>
+
+    <div class="app-container">
+      <!-- Top Navigation / Theme Toggle Bar -->
+      <nav class="top-nav" aria-label="Page controls">
+        <div class="brand-pill">
+          <span class="brand-dot"></span>
+          <span>Exact Precision Engine</span>
+        </div>
+        <div class="nav-actions">
+          <a
+            href="./age-calculator-infinityfree.zip"
+            download="age-calculator-infinityfree.zip"
+            class="download-pill"
+            title="Download complete zip for InfinityFree"
+          >
+            <svg
+              class="download-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" x2="12" y1="15" y2="3"></line>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+          <button
+            id="theme-toggle-btn"
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle dark and light mode"
+            title="Toggle color theme"
+          >
+          <!-- Sun Icon (for dark mode active) -->
+          <svg
+            class="sun-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <!-- Moon Icon (for light mode active) -->
+          <svg
+            class="moon-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <span class="theme-text" id="theme-label">Theme</span>
+        </button>
+      </nav>
+
+      <!-- Main Calculator Card -->
+      <main class="calculator-card">
+        <!-- Header -->
+        <header class="app-header">
+          <div class="icon-badge" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+              <line x1="16" x2="16" y1="2" y2="6"></line>
+              <line x1="8" x2="8" y1="2" y2="6"></line>
+              <line x1="3" x2="21" y1="10" y2="10"></line>
+              <path d="m9 16 2 2 4-4"></path>
+            </svg>
+          </div>
+          <h1 class="app-title">Age Calculator</h1>
+          <p class="app-subtitle">Discover your exact age in seconds.</p>
+        </header>
+
+        <!-- Form Section -->
+        <form id="age-form" class="calculator-form" novalidate>
+          <div class="input-group">
+            <div class="label-row">
+              <label for="dob-input" class="input-label">
+                <svg
+                  class="label-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                  <line x1="16" x2="16" y1="2" y2="6"></line>
+                  <line x1="8" x2="8" y1="2" y2="6"></line>
+                  <line x1="3" x2="21" y1="10" y2="10"></line>
+                </svg>
+                Enter Your Date of Birth
+              </label>
+              <span class="input-hint" id="today-hint">Today: --</span>
+            </div>
+
+            <div class="input-wrapper">
+              <input
+                type="date"
+                id="dob-input"
+                name="dob"
+                class="date-input"
+                required
+                aria-describedby="validation-message"
+              />
+            </div>
+
+            <!-- Helpful validation message -->
+            <div
+              id="validation-message"
+              class="validation-message hidden"
+              role="alert"
+              aria-live="polite"
+            >
+              <svg
+                class="error-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" x2="12" y1="8" y2="12"></line>
+                <line x1="12" x2="12.01" y1="16" y2="16"></line>
+              </svg>
+              <span id="validation-text">Please select your date of birth first.</span>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button type="submit" id="calculate-btn" class="calculate-btn">
+            <span class="btn-content">
+              <svg
+                class="btn-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m12 14 4-4"></path>
+                <path d="M3.34 7 7 3.34"></path>
+                <path d="m14 12 4-4"></path>
+                <path d="M2 18h20"></path>
+                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              </svg>
+              Calculate My Age
+            </span>
+          </button>
+        </form>
+
+        <!-- Birthday Celebration Banner (shown if birthday is today) -->
+        <div id="birthday-banner" class="birthday-banner hidden" role="status">
+          <div class="banner-emoji" aria-hidden="true">🎉 🎂 🎈</div>
+          <div class="banner-text">
+            <strong>Happy Birthday!</strong>
+            <span>Wishing you a joyful, prosperous, and wonderful year ahead!</span>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section hidden" aria-live="polite">
+          <div class="results-header">
+            <h2 class="results-title">Your Exact Age</h2>
+            <span class="results-summary-badge" id="results-summary-badge">
+              0 Years | 0 Months | 0 Days
+            </span>
+          </div>
+
+          <!-- 3 Separate Result Boxes -->
+          <div class="result-boxes-grid">
+            <!-- Years Box -->
+            <div class="result-box box-years">
+              <div class="box-badge">Years</div>
+              <div class="number-wrapper">
+                <span class="result-number" id="result-years">0</span>
+              </div>
+              <span class="box-label">Years Old</span>
+            </div>
+
+            <!-- Months Box -->
+            <div class="result-box box-months">
+              <div class="box-badge">Months</div>
+              <div class="number-wrapper">
+                <span class="result-number" id="result-months">0</span>
+              </div>
+              <span class="box-label">Months</span>
+            </div>
+
+            <!-- Days Box -->
+            <div class="result-box box-days">
+              <div class="box-badge">Days</div>
+              <div class="number-wrapper">
+                <span class="result-number" id="result-days">0</span>
+              </div>
+              <span class="box-label">Days</span>
+            </div>
+          </div>
+
+          <!-- Additional Stats Card -->
+          <div class="stats-card">
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                    <line x1="16" x2="16" y1="2" y2="6"></line>
+                    <line x1="8" x2="8" y1="2" y2="6"></line>
+                    <line x1="3" x2="21" y1="10" y2="10"></line>
+                  </svg>
+                  Date of Birth
+                </span>
+                <span class="stat-value" id="stat-dob">--</span>
+              </div>
+
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  Day of the Week Born
+                </span>
+                <span class="stat-value highlight" id="stat-day-of-week">--</span>
+              </div>
+            </div>
+
+            <div class="stat-divider"></div>
+
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2v20"></path>
+                    <path d="m17 5-5-3-5 3"></path>
+                    <path d="m17 19-5 3-5-3"></path>
+                    <path d="M2 12h20"></path>
+                  </svg>
+                  Total Days Lived
+                </span>
+                <span class="stat-value" id="stat-total-days">--</span>
+              </div>
+
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Next Birthday In
+                </span>
+                <span class="stat-value" id="stat-next-birthday">--</span>
+              </div>
+            </div>
+
+            <div class="stat-divider"></div>
+
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                  </svg>
+                  Western Zodiac
+                </span>
+                <span class="stat-value zodiac-value" id="stat-western-zodiac">--</span>
+              </div>
+
+              <div class="stat-item">
+                <span class="stat-label">
+                  <svg
+                    class="stat-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  Chinese Zodiac
+                </span>
+                <span class="stat-value zodiac-value" id="stat-chinese-zodiac">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Life Milestones Section -->
+          <div class="milestones-section">
+            <div class="milestones-header">
+              <div class="milestones-title">
+                <svg
+                  class="milestone-title-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Life Milestones
+              </div>
+              <span class="milestones-subtitle">Upcoming celebrations & round-number achievements</span>
+            </div>
+
+            <div class="milestones-grid">
+              <!-- Milestone 1: Significant Day Milestone (10,000 Days) -->
+              <div class="milestone-card day-milestone">
+                <div class="milestone-badge-row">
+                  <span class="milestone-icon-tag">🚀</span>
+                  <span class="milestone-name" id="milestone-day-title">10,000 Days Old</span>
+                </div>
+                <div class="milestone-date" id="milestone-day-date">--</div>
+                <div class="milestone-countdown" id="milestone-day-countdown">In -- days</div>
+                <div class="progress-wrap">
+                  <div class="progress-track">
+                    <div class="progress-fill" id="milestone-day-progress" style="width: 0%"></div>
+                  </div>
+                  <span class="progress-label" id="milestone-day-percent">0% toward goal</span>
+                </div>
+              </div>
+
+              <!-- Milestone 2: Next Milestone Birthday -->
+              <div class="milestone-card bday-milestone">
+                <div class="milestone-badge-row">
+                  <span class="milestone-icon-tag">🎂</span>
+                  <span class="milestone-name" id="milestone-bday-title">Next Milestone Birthday</span>
+                </div>
+                <div class="milestone-date" id="milestone-bday-date">--</div>
+                <div class="milestone-countdown" id="milestone-bday-countdown">In -- days</div>
+                <div class="milestone-pill-wrap">
+                  <span class="milestone-pill" id="milestone-bday-pill">Celebration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================
+               ADMOB / ADSENSE BANNER CONTAINER (READY FOR YOUR AD UNIT)
+               Paste your AdMob / AdSense script or Cordova/Capacitor banner hook here
+               ============================================================= -->
+          <div class="admob-container" id="admob-banner-container" aria-label="Sponsored advertisement">
+            <span class="admob-label">ADVERTISEMENT</span>
+            <div class="admob-slot" id="admob-slot-banner">
+              <!-- AdMob / AdSense Code Insertion Point:
+                   Example for Google AdSense:
+                   <ins class="adsbygoogle"
+                        style="display:inline-block;width:320px;height:50px"
+                        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                        data-ad-slot="YYYYYYYYYY"></ins>
+                   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+              -->
+              <div class="admob-placeholder-inner">
+                <span class="admob-icon">📢</span>
+                <span class="admob-text">AdMob Banner Space (320x50 / Responsive)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons (Reset, Copy, Share) -->
+          <div class="action-buttons-group">
+            <button
+              type="button"
+              id="copy-btn"
+              class="action-btn copy-btn"
+              aria-label="Copy age result to clipboard"
+            >
+              <svg
+                class="action-icon copy-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+              </svg>
+              <svg
+                class="action-icon check-icon hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span id="copy-text">Copy Result</span>
+            </button>
+
+            <button
+              type="button"
+              id="share-btn"
+              class="action-btn share-btn"
+              aria-label="Share age calculation"
+            >
+              <svg
+                class="action-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+              </svg>
+              <span>Share Result</span>
+            </button>
+
+            <button
+              type="button"
+              id="reset-btn"
+              class="action-btn reset-btn"
+              aria-label="Reset calculator and clear date"
+            >
+              <svg
+                class="action-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <!-- Toast Feedback Notification -->
+      <div id="toast" class="toast hidden" role="status" aria-live="polite">
+        <svg
+          class="toast-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-text">Result copied to clipboard!</span>
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Made with ❤️ | Age Calculator</p>
+      </footer>
+    </div>
+
+    <!-- Script Entry -->
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
