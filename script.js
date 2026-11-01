@@ -618,6 +618,20 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     // Reveal Results Section
     resultsSection.classList.remove('hidden');
 
+    // Trigger premium staggered spring entrance & shimmer on result boxes and cards
+    const animatedCards = [
+      ...resultsSection.querySelectorAll('.result-box'),
+      resultsSection.querySelector('.stats-card'),
+      resultsSection.querySelector('.milestones-section'),
+      resultsSection.querySelector('.admob-container'),
+      resultsSection.querySelector('.action-buttons-group')
+    ].filter(Boolean);
+
+    animatedCards.forEach((el) => el.classList.remove('animating'));
+    // Force DOM reflow so re-calculation re-triggers the spring & shimmer animations
+    void resultsSection.offsetWidth;
+    animatedCards.forEach((el) => el.classList.add('animating'));
+
     // Staggered counting animations for Years, Months, and Days
     // Years starts immediately, Months at +80ms, Days at +160ms for a cascading odometer effect
     animateNumber(resultYears, result.years, 1100, 0);
@@ -693,8 +707,8 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
         el.classList.remove('is-counting', 'counting-complete');
       }
     });
-    document.querySelectorAll('.result-box').forEach((box) => {
-      box.classList.remove('animating');
+    document.querySelectorAll('.result-box, .stats-card, .milestones-section, .admob-container, .action-buttons-group').forEach((el) => {
+      el.classList.remove('animating');
     });
     if (statWesternZodiac) statWesternZodiac.textContent = '--';
     if (statChineseZodiac) statChineseZodiac.textContent = '--';

@@ -328,20 +328,29 @@ body {
   border: 1px solid var(--color-card-border);
   box-shadow: var(--color-card-shadow);
   padding: 1.75rem 1.75rem;
-  transition: background var(--transition-slow), border-color var(--transition-slow), box-shadow var(--transition-slow);
-  animation: cardFadeIn 0.5s ease-out;
+  transition: background var(--transition-slow), border-color var(--transition-slow), box-shadow var(--transition-slow), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardLuxuryEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
 }
 
-@keyframes cardFadeIn {
-  from {
+@keyframes cardLuxuryEntrance {
+  0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(32px) scale(0.96);
+    filter: blur(4px);
   }
-  to {
+  60% {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.004);
+    filter: blur(0);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
+
 
 /* Header */
 .app-header {
@@ -601,19 +610,19 @@ body {
 .results-section {
   border-top: 1px solid var(--color-stats-border);
   padding-top: 1.25rem;
-  animation: slideFadeDown 0.4s ease-out;
+  animation: resultsCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .results-section.hidden {
   display: none;
 }
 
-@keyframes slideFadeDown {
-  from {
+@keyframes resultsCascadeIn {
+  0% {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(18px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -643,6 +652,7 @@ body {
   background: var(--color-box-bg);
   border: 1px solid var(--color-box-border);
   color: var(--color-primary);
+  transition: all var(--transition-fast);
 }
 
 /* 3 Separate Result Boxes Grid */
@@ -665,41 +675,65 @@ body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), border-color var(--transition-fast), box-shadow 0.28s ease;
+  will-change: transform, opacity, box-shadow;
 }
 
 .result-box:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.025);
   border-color: var(--color-primary);
+  box-shadow: 0 12px 28px -4px var(--color-primary-glow);
 }
 
-/* Staggered entry animation on calculate */
+/* Luxury spring entry animation on calculate */
 .result-box.animating {
-  animation: boxCardPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: boxSpringPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.result-box.box-years.animating {
+  animation-delay: 0.04s;
 }
 
 .result-box.box-months.animating {
-  animation-delay: 0.08s;
+  animation-delay: 0.12s;
 }
 
 .result-box.box-days.animating {
-  animation-delay: 0.16s;
+  animation-delay: 0.20s;
 }
 
-/* Subtle Shimmer Sweep on calculate */
+@keyframes boxSpringPop {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.88);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.035);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Radiant High-Gloss Shimmer Sweep on calculate */
 .result-box::after {
   content: '';
   position: absolute;
   top: 0;
-  left: -120%;
-  width: 80%;
+  left: -130%;
+  width: 90%;
   height: 100%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.45) 45%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.45) 55%,
     transparent 100%
   );
+  transform: skewX(-20deg);
   pointer-events: none;
   opacity: 0;
 }
@@ -708,16 +742,39 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
     transparent 100%
   );
 }
 
 .result-box.animating::after {
-  animation: shimmerPass 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: shimmerSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Top accent bars for each box */
+.result-box.box-years.animating::after {
+  animation-delay: 0.12s;
+}
+.result-box.box-months.animating::after {
+  animation-delay: 0.20s;
+}
+.result-box.box-days.animating::after {
+  animation-delay: 0.28s;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -130%;
+    opacity: 0.95;
+  }
+  100% {
+    left: 220%;
+    opacity: 0;
+  }
+}
+
+/* Top accent bars for each box with expanding reveal */
 .result-box::before {
   content: '';
   position: absolute;
@@ -725,6 +782,33 @@ body {
   left: 0;
   right: 0;
   height: 4px;
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+
+.result-box.animating::before {
+  animation: accentBarExpand 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.result-box.box-years.animating::before {
+  animation-delay: 0.05s;
+}
+.result-box.box-months.animating::before {
+  animation-delay: 0.13s;
+}
+.result-box.box-days.animating::before {
+  animation-delay: 0.21s;
+}
+
+@keyframes accentBarExpand {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 .box-years::before {
@@ -735,6 +819,38 @@ body {
 }
 .box-days::before {
   background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+/* Staggered cascading reveal for subsequent cards */
+.stats-card.animating {
+  animation: elementCascadeIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.24s;
+}
+
+.milestones-section.animating {
+  animation: elementCascadeIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.32s;
+}
+
+.admob-container.animating {
+  animation: elementCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.40s;
+}
+
+.action-buttons-group.animating {
+  animation: elementCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.46s;
+}
+
+@keyframes elementCascadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .box-badge {
@@ -768,42 +884,20 @@ body {
 
 /* Smooth Count Up States */
 .result-number.is-counting {
-  transform: scale(1.05);
-  filter: drop-shadow(0 2px 8px var(--color-primary-glow));
+  transform: scale(1.08);
+  filter: drop-shadow(0 2px 10px var(--color-primary-glow));
 }
 
 .result-number.counting-complete {
-  animation: numberPulsePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes boxCardPop {
-  0% {
-    opacity: 0.6;
-    transform: translateY(8px) scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes shimmerPass {
-  0% {
-    left: -120%;
-    opacity: 0.8;
-  }
-  100% {
-    left: 200%;
-    opacity: 0;
-  }
+  animation: numberPulsePop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes numberPulsePop {
   0% {
-    transform: scale(1.14);
+    transform: scale(1.15);
   }
   50% {
-    transform: scale(0.97);
+    transform: scale(0.96);
   }
   100% {
     transform: scale(1);
